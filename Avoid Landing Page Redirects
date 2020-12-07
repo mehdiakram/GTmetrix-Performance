@@ -1,0 +1,14 @@
+## Avoid multiple page redirects
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_URI} /(.+)/$
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ https://www.example.com/%1 [R=301,L]
+RewriteCond %{REQUEST_URI} !(.+)/$
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+)$ https://www.example.com/$1/ [R=301,L]
+RewriteCond %{HTTP_HOST} !^www\.(.*)$ [OR,NC]
+RewriteCond %{https} off
+RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,L]
+</IfModule>
+## Avoid multiple page redirects
